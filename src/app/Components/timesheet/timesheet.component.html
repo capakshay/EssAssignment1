@@ -1,0 +1,160 @@
+<div class="center">
+    <div class="d-flex justify-content-center">
+        <h2>Timesheet</h2>
+    </div>
+    <form [formGroup]="timesheet">
+        <div class="form-group row">
+            <label for="inputEmail3" class="col-sm-2 col-form-label">Employee</label>
+            <div class="col-sm-10">
+              <input type="email" class="form-control" id="inputEmail3" formControlName="name"  readonly>
+            </div>
+        </div>
+    
+        <div class="form-group row">
+            <label for="exampleFormControlSelect1" class="col-sm-2 col-form-label">Project</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="exampleFormControlSelect1" formControlName="project_name" >
+                    <option>TeleForg</option>
+                    <option>Art</option>
+                    <option>TelJoy</option>
+                </select>
+            </div>
+            <small class="move" *ngIf="projectName?.touched && projectName?.invalid" >
+                <small *ngIf="projectName?.errors?.['required']">Project Name is Required</small>
+            </small>
+        </div>
+    
+        <div class="form-group row">
+            <label for="exampleFormControlSelect2" class="col-sm-2 col-form-label">Activity</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="exampleFormControlSelect2" formControlName="activity">
+                    <option>Coding & Implementation</option>
+                    <option>Client Interaction</option>
+                    <option>Daily StandUp Meeting</option>
+                    <option>Documentation</option>
+                    <option>Research & Development</option>
+                </select>
+            </div>
+            <small class="move" *ngIf="activity?.touched && activity?.invalid" >
+                <small *ngIf="activity?.errors?.['required']">Activity is Required</small>
+            </small>
+        </div>
+    
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Date</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" placeholder="Enter Date" formControlName="date" autocomplete="off">
+            </div>
+            <small class="move" *ngIf="date?.touched && date?.invalid" >
+                <small *ngIf="date?.errors?.['required']">Date is Required</small>
+            </small>
+        </div>
+    
+        <div class="form-group row" formGroupName="time_spent">
+            <label class="col-sm-2 col-form-label">Time Spent (hh:mm)</label>
+             <div class="form-group col-md-5">
+                <label  class="timespent" for="inputEmail4">Hours</label>
+                <input type="number" class="form-control" id="inputEmail4" placeholder="Hrs" autocomplete="off" formControlName="hrs">
+                <small class="submove" *ngIf="hrs?.touched && hrs?.invalid" >
+                   <small *ngIf="hrs?.errors?.['required']">Hours is Required</small>
+                   <small *ngIf="hrs?.errors?.['pattern']">Please Enter Hours Between 0-3</small>
+                </small>
+             </div>
+             <div class="form-group  col-md-5">
+                <label  class="timespent" for="inputEmail5">Min</label>
+                <input type="number" class="form-control" id="inputEmail5"  placeholder="Min" autocomplete="off" formControlName="min">
+                <small class="submove" *ngIf="min?.touched && min?.invalid" >
+                   <small *ngIf="min?.errors?.['pattern']">Please Enter minute Between 0-59</small>
+                </small>
+             </div>
+        </div>
+    
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Description</label>
+            <div class="col-sm-10">
+                <textarea type="textarea" class="form-control" placeholder="Enter Description" formControlName="description"></textarea>
+            </div>
+        </div>
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label"> </label>
+            <div class="col-sm-10">
+                <button *ngIf="!updateButton" type="submit" class="btn btn-secondary" [disabled]="timesheet.invalid" (click)="saveData()">
+                    Submit
+                </button>
+                <button *ngIf="updateButton" type="submit" class="btn btn-secondary" [disabled]="timesheet.invalid" (click)="update()">
+                    Update
+                </button>
+
+            </div>
+        </div> 
+        <div *ngIf="moreThan14" class="form-group row">
+            <label class="col-sm-2 col-form-label"> </label>
+            <div  class="col-sm-10 max14">
+                Total for the day should not be more than 14 hours
+            </div>
+        </div>
+        <div class="form-group row hint">
+            <label class="col-sm-2 col-form-label"> </label>
+            <div  class="col-sm-10">
+               <span class="hintspan">*</span> Please fill timesheet in between 0 to 3 hours for each entry.
+            </div>
+        </div>
+        <div class="form-group row hint">
+            <label class="col-sm-2 col-form-label"> </label>
+            <div  class="col-sm-10">
+               <span class="hintspan">*</span> 
+                Total for the day should not be more than 14 hours
+            </div>
+        </div>
+    </form>
+
+    <div class="timesheet">
+        <div class="d-flex justify-content-start dateparent">
+            <div class="date">Date 
+                <i class="fa fa-chevron-down" aria-hidden="true"></i>
+            </div>
+        </div>
+        <ul>
+            <li>
+                <div *ngFor="let x of this.allDate[0]| keyvalue  ; index as i">
+                    <i *ngIf="!(i==particularObj.id)" class="fa fa-plus-square fa-2x" (click)="changeicon(x,i,1)" aria-hidden="true"></i>
+                    <i *ngIf="i==particularObj.id" class="fa fa-minus-square fa-2x" (click)="changeicon(x,i,-1)" aria-hidden="true"></i>
+                    <span>Date:{{x.key}}</span>
+                    <table  *ngIf="i==particularObj.id" class="table">
+                        <thead class="thead-dark">
+                          <tr>
+                            <th scope="col">Edit</th>
+                            <th scope="col">Project </th>
+                            <th scope="col">Activity</th> 
+                            <th scope="col">TimeSpent</th>
+                            <th scope="col">Description</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let data of particularObj.value">
+                            <th scope="row">
+                                <span  class="edit" (click)="editData(data)">edit</span>
+                            </th> 
+                            <td>{{data.project_name}}</td>
+                            <td>{{data.activity}}</td>
+                            <td>{{data.time_spent.hrs|number:'2.0-0'}}:{{data.time_spent.min|number:'2.0-0'}} </td> 
+                            <td>{{data.description}}</td>
+                          </tr>
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th></th>
+                                <td></td>
+                                <td></td> 
+                                <td>{{totalHrs|number:'2.0-0'}}:{{totalMin|number:'2.0-0'}}</td>
+                                <td></td>
+                            </tr>
+                        </tfoot>
+                      </table> 
+                </div>
+               
+            </li> 
+        </ul>
+    </div>
+</div>
+

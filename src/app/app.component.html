@@ -1,0 +1,37 @@
+ 
+  <div class="main">
+    <div class="header">
+      <h1><strong>Winjit</strong> |  Employee Self Service </h1>
+    </div>
+      <mat-toolbar-row>
+        <div>
+          <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <span class="collapse navbar-collapse firstspan" id="navbarSupportedContent">
+              <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link " routerLink="home">Home</a></li>
+                <li class="nav-item"><a class="nav-link " routerLink="timesheet">Timesheet</a></li>
+                <li class="nav-item"><a class="nav-link " routerLink="leaverequest">Leave Management</a></li>
+                <li class="nav-item"><a class="nav-link " routerLink="leaverequest">Posco</a></li>
+                <li class="nav-item"><a class="nav-link " routerLink="leaverequest">Form and Docs</a></li>
+                <li class="nav-item"><a class="nav-link " routerLink="leaverequest">PaySquare</a></li>
+              </ul>
+            </span>
+            <span class="secspan">
+              Hi Akshay Ashok Nikam
+            </span>
+            <span class="thirdspan">
+              <i class="fa fa-cog fa-2x" aria-hidden="true"></i>
+            </span>
+          </nav>
+        </div>
+      </mat-toolbar-row>
+  
+    <div class="container">
+      <div class="row">
+        <div class="col-md-9">
+          <router-outlet></router-outlet>
+        </div>
+        <div class=" col-md-2"><app-rightsidebar></app-rightsidebar></div>
+      </div>
+    </div>
+  </div> 

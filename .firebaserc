@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "fir-demo-eedaa": {
+      "hosting": {
+        "ESS_Angular": [
+          "fir-demo-eedaa"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "fir-demo-eedaa"
+  }
+}

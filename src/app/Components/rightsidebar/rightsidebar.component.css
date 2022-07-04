@@ -1,0 +1,8 @@
+ol{
+    list-style-type: inherit;
+} 
+li:hover{ 
+    margin-bottom: 5px;
+    border: 2px solid black;
+    background-color: rgb(212, 209, 209);
+}
